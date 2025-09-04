@@ -5,6 +5,7 @@ import java.time.Instant;
 public class Examen {
     private int id;
     private String nom;
+    private String titre;
     private Cours cours;
     private Instant dateEtHeure;
     private int coefficient;
@@ -53,5 +54,13 @@ public class Examen {
 
     public void setCoefficient(int coefficient) {
         this.coefficient = coefficient;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 }
