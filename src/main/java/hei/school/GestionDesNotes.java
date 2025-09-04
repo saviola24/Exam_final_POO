@@ -1,6 +1,9 @@
+package hei.school;
+
 import hei.school.Cours;
 import hei.school.Etudiant;
 import hei.school.Examen;
+import hei.school.Notes;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -9,7 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class GestionDesNotes {
-    private final Map<Examen, Map<Etudiant, Note>> notesParExamen;
+    private final Map<Examen, Map<Etudiant, Notes>> notesParExamen;
     private final Map<Etudiant, Map<Cours, List<Examen>>> examensParEtudiantEtCours;
 
     public GestionDesNotes() {
@@ -17,12 +20,12 @@ public class GestionDesNotes {
         this.examensParEtudiantEtCours = new TreeMap<>();
     }
 
-    public GestionDesNotes(Map<Examen, Map<Etudiant, Note>> notesParExamen, Map<Etudiant, Map<Cours, List<Examen>>> examensParEtudiantEtCours) {
+    public GestionDesNotes(Map<Examen, Map<Etudiant, Notes>> notesParExamen, Map<Etudiant, Map<Cours, List<Examen>>> examensParEtudiantEtCours) {
         this.notesParExamen = notesParExamen;
         this.examensParEtudiantEtCours = examensParEtudiantEtCours;
     }
 
-    public void ajouterNote(Examen examen, Etudiant etudiant, Note note) {
+    public void ajouterNote(Examen examen, Etudiant etudiant, Notes note) {
         notesParExamen.computeIfAbsent(examen, k -> new TreeMap<>()).put(etudiant, note);
         examensParEtudiantEtCours.computeIfAbsent(etudiant, k -> new TreeMap<>())
                 .computeIfAbsent(examen.getCours(), k -> new ArrayList<>())
@@ -35,8 +38,8 @@ public class GestionDesNotes {
             throw new IllegalArgumentException("Note not found for the given exam and student.");
         }
 
-        Note note = notesParExamen.get(examen).get(etudiant);
-        Map<Instant, Note.HistoriqueNote> historique = note.getHistorique();
+        Notes note = notesParExamen.get(examen).get(etudiant);
+        Map<Instant, Notes.HistoriqueNote> historique = note.getHistorique();
 
         // Find the most recent note value before or at the specified instant 't'
         Instant lastInstant = null;

@@ -36,6 +36,10 @@ public class Notes {
             this.valeur = valeur;
             this.motif = motif;
         }
+
+        public double getValeur() {
+            return valeur;
+        }
     }
 
     public void setValeurActuelle(double valeurActuelle) {
